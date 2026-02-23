@@ -17,7 +17,13 @@ import seaborn as sns
 
 
 ```python
-df_orders = pd.read_parquet('/Users/mariajordamunoz/Documents/formación/data science - zrive/semana 2/zrive-grocery-datasets/orders.parquet')
+# In order to pull the data you need to have the files in a folder in the same directory as this notebook. If you have the data in a different location, you can change the path in the code below.
+relative_path="module_2_datasets/"
+```
+
+
+```python
+df_orders = pd.read_parquet(f'{relative_path}orders.parquet')
 print(df_orders.shape)
 df_orders.head()
 ```
@@ -108,7 +114,7 @@ df_orders.head()
 
 
 ```python
-df_items_asked_for = pd.read_parquet('/Users/mariajordamunoz/Documents/formación/data science - zrive/semana 2/zrive-grocery-datasets/regulars.parquet')
+df_items_asked_for = pd.read_parquet(f'{relative_path}regulars.parquet')
 print(df_items_asked_for.shape)
 df_items_asked_for.head()
 ```
@@ -181,7 +187,7 @@ df_items_asked_for.head()
 
 
 ```python
-df_abandoned_cart = pd.read_parquet('/Users/mariajordamunoz/Documents/formación/data science - zrive/semana 2/zrive-grocery-datasets/abandoned_carts.parquet')
+df_abandoned_cart = pd.read_parquet(f'{relative_path}abandoned_carts.parquet')
 print(df_abandoned_cart.shape)
 df_abandoned_cart.head()
 ```
@@ -260,7 +266,7 @@ df_abandoned_cart.head()
 
 
 ```python
-df_inventory = pd.read_parquet('/Users/mariajordamunoz/Documents/formación/data science - zrive/semana 2/zrive-grocery-datasets/inventory.parquet')
+df_inventory = pd.read_parquet(f'{relative_path}inventory.parquet')
 print(df_inventory.shape)
 df_inventory.head()
 ```
@@ -351,7 +357,7 @@ df_inventory.head()
 
 
 ```python
-df_users = pd.read_parquet('/Users/mariajordamunoz/Documents/formación/data science - zrive/semana 2/zrive-grocery-datasets/users.parquet')
+df_users = pd.read_parquet(f'{relative_path}users.parquet')
 print(df_users.shape)
 df_users.head()
 ```
@@ -1052,7 +1058,7 @@ plt.tight_layout()
 plt.show()
 ```
 
-    /var/folders/zq/ds7p3rt927gcrx_qw3k8x1zw0000gn/T/ipykernel_6791/248094439.py:5: FutureWarning: 
+    /var/folders/zq/ds7p3rt927gcrx_qw3k8x1zw0000gn/T/ipykernel_12151/248094439.py:5: FutureWarning: 
     
     Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
     
@@ -1061,7 +1067,7 @@ plt.show()
 
 
     
-![png](1_groceries_datasets_analysis_files/1_groceries_datasets_analysis_45_1.png)
+![png](1_groceries_datasets_analysis_files/1_groceries_datasets_analysis_46_1.png)
     
 
 
@@ -1079,7 +1085,7 @@ plt.show()
 
 
     
-![png](1_groceries_datasets_analysis_files/1_groceries_datasets_analysis_46_0.png)
+![png](1_groceries_datasets_analysis_files/1_groceries_datasets_analysis_47_0.png)
     
 
 
@@ -1097,13 +1103,13 @@ plt.show()
 
 ```
 
-    /var/folders/zq/ds7p3rt927gcrx_qw3k8x1zw0000gn/T/ipykernel_6791/2578103875.py:2: SettingWithCopyWarning: 
+    /var/folders/zq/ds7p3rt927gcrx_qw3k8x1zw0000gn/T/ipykernel_12151/2578103875.py:2: SettingWithCopyWarning: 
     A value is trying to be set on a copy of a slice from a DataFrame.
     Try using .loc[row_indexer,col_indexer] = value instead
     
     See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
       df_purchases['has_discount'] = df_purchases['compare_at_price'] > df_purchases['price']
-    /var/folders/zq/ds7p3rt927gcrx_qw3k8x1zw0000gn/T/ipykernel_6791/2578103875.py:4: FutureWarning: 
+    /var/folders/zq/ds7p3rt927gcrx_qw3k8x1zw0000gn/T/ipykernel_12151/2578103875.py:4: FutureWarning: 
     
     Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
     
@@ -1112,7 +1118,7 @@ plt.show()
 
 
     
-![png](1_groceries_datasets_analysis_files/1_groceries_datasets_analysis_47_1.png)
+![png](1_groceries_datasets_analysis_files/1_groceries_datasets_analysis_48_1.png)
     
 
 
@@ -1129,7 +1135,7 @@ plt.tight_layout()
 plt.show()
 ```
 
-    /var/folders/zq/ds7p3rt927gcrx_qw3k8x1zw0000gn/T/ipykernel_6791/1159867097.py:4: FutureWarning: 
+    /var/folders/zq/ds7p3rt927gcrx_qw3k8x1zw0000gn/T/ipykernel_12151/1159867097.py:4: FutureWarning: 
     
     Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `y` variable to `hue` and set `legend=False` for the same effect.
     
@@ -1138,7 +1144,7 @@ plt.show()
 
 
     
-![png](1_groceries_datasets_analysis_files/1_groceries_datasets_analysis_48_1.png)
+![png](1_groceries_datasets_analysis_files/1_groceries_datasets_analysis_49_1.png)
     
 
 
@@ -1150,9 +1156,6 @@ We now analyze the users information
 ```python
 df_unique_users = df_merged.drop_duplicates(subset='user_id')
 ```
-
-    The dataset contains 4983 unique users.
-
 
 
 ```python
@@ -1177,12 +1180,12 @@ plt.tight_layout()
 plt.show()
 ```
 
-    /var/folders/zq/ds7p3rt927gcrx_qw3k8x1zw0000gn/T/ipykernel_6791/2527321212.py:7: FutureWarning: 
+    /var/folders/zq/ds7p3rt927gcrx_qw3k8x1zw0000gn/T/ipykernel_12151/2527321212.py:7: FutureWarning: 
     
     Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `y` variable to `hue` and set `legend=False` for the same effect.
     
       sns.barplot(x=top_10_locations.values, y=top_10_locations.index, palette='viridis', ax=axes[0])
-    /var/folders/zq/ds7p3rt927gcrx_qw3k8x1zw0000gn/T/ipykernel_6791/2527321212.py:14: FutureWarning: 
+    /var/folders/zq/ds7p3rt927gcrx_qw3k8x1zw0000gn/T/ipykernel_12151/2527321212.py:14: FutureWarning: 
     
     Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `y` variable to `hue` and set `legend=False` for the same effect.
     
@@ -1191,7 +1194,7 @@ plt.show()
 
 
     
-![png](1_groceries_datasets_analysis_files/1_groceries_datasets_analysis_52_1.png)
+![png](1_groceries_datasets_analysis_files/1_groceries_datasets_analysis_53_1.png)
     
 
 
@@ -1208,7 +1211,7 @@ plt.tight_layout()
 plt.show()
 ```
 
-    /var/folders/zq/ds7p3rt927gcrx_qw3k8x1zw0000gn/T/ipykernel_6791/3618534606.py:4: FutureWarning: 
+    /var/folders/zq/ds7p3rt927gcrx_qw3k8x1zw0000gn/T/ipykernel_12151/3618534606.py:4: FutureWarning: 
     
     Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `y` variable to `hue` and set `legend=False` for the same effect.
     
@@ -1217,7 +1220,7 @@ plt.show()
 
 
     
-![png](1_groceries_datasets_analysis_files/1_groceries_datasets_analysis_53_1.png)
+![png](1_groceries_datasets_analysis_files/1_groceries_datasets_analysis_54_1.png)
     
 
 
@@ -1233,7 +1236,7 @@ plt.tight_layout()
 plt.show()
 ```
 
-    /var/folders/zq/ds7p3rt927gcrx_qw3k8x1zw0000gn/T/ipykernel_6791/3215552244.py:3: FutureWarning: 
+    /var/folders/zq/ds7p3rt927gcrx_qw3k8x1zw0000gn/T/ipykernel_12151/3215552244.py:3: FutureWarning: 
     
     Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
     
@@ -1242,7 +1245,7 @@ plt.show()
 
 
     
-![png](1_groceries_datasets_analysis_files/1_groceries_datasets_analysis_54_1.png)
+![png](1_groceries_datasets_analysis_files/1_groceries_datasets_analysis_55_1.png)
     
 
 
@@ -1261,7 +1264,7 @@ plt.show()
 
 
     
-![png](1_groceries_datasets_analysis_files/1_groceries_datasets_analysis_55_0.png)
+![png](1_groceries_datasets_analysis_files/1_groceries_datasets_analysis_56_0.png)
     
 
 

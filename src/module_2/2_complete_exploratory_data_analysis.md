@@ -18,7 +18,13 @@ import numpy as np
 
 
 ```python
-df_orders = pd.read_csv('/Users/mariajordamunoz/Documents/formación/data science - zrive/semana 2/zrive-grocery-box-builder/feature_frame.csv')
+# In order to pull the data you need to have the files in a folder in the same directory as this notebook. If you have the data in a different location, you can change the path in the code below.
+relative_path="module_2_datasets/"
+```
+
+
+```python
+df_orders = pd.read_csv(f'{relative_path}feature_frame.csv')
 print(df_orders.shape)
 df_orders.head()
 ```
@@ -816,7 +822,7 @@ plt.show()
 
 
     
-![png](2_complete_exploratory_data_analysis_files/2_complete_exploratory_data_analysis_21_0.png)
+![png](2_complete_exploratory_data_analysis_files/2_complete_exploratory_data_analysis_22_0.png)
     
 
 
@@ -877,7 +883,7 @@ plt.show()
 
 
     
-![png](2_complete_exploratory_data_analysis_files/2_complete_exploratory_data_analysis_26_0.png)
+![png](2_complete_exploratory_data_analysis_files/2_complete_exploratory_data_analysis_27_0.png)
     
 
 
@@ -901,28 +907,6 @@ print(vif_data)
       vif = 1. / (1. - r_squared_i)
 
 
-                                 feature         VIF
-    0                     user_order_seq    3.790808
-    1                     ordered_before    1.262233
-    2                   abandoned_before    1.005994
-    3                     active_snoozed    1.078707
-    4                     set_as_regular    1.106921
-    5                   normalised_price    2.057176
-    6                       discount_pct    2.011348
-    7                  global_popularity    1.465968
-    8                       count_adults         inf
-    9                     count_children         inf
-    10                      count_babies    1.085973
-    11                        count_pets    1.429117
-    12                    people_ex_baby         inf
-    13    days_since_purchase_variant_id   62.513203
-    14        avg_days_to_buy_variant_id   19.967011
-    15        std_days_to_buy_variant_id   23.348515
-    16  days_since_purchase_product_type    7.983033
-    17      avg_days_to_buy_product_type  183.343672
-    18      std_days_to_buy_product_type  214.366037
-
-
 We see that the VIF is extremely high (inf) for count_adults, people_ex_baby and count_children, as people_ex_baby is explained by the other two. Additionally, days_since_purchase_variant_id, avg_days_to_buy_variant_id,std_days_to_buy_variant_id, avg_days_to_buy_product_type and std_days_to_buy_product_type also have VIF higher than 10, as days_since, avg and std are highly correlated. Keeping all variables could affect a predicting moddeling, so I'm going to drop the std variable (the avg variable is easier to understand)
 
 
@@ -935,37 +919,6 @@ df_orders.drop(columns=['people_ex_baby', 'std_days_to_buy_variant_id', 'std_day
 df_orders.dtypes
 ```
 
-
-
-
-    variant_id                                   int64
-    product_type                                object
-    order_id                                     int64
-    user_id                                      int64
-    created_at                          datetime64[ns]
-    order_date                          datetime64[ns]
-    user_order_seq                               int64
-    outcome                                      int64
-    ordered_before                               int64
-    abandoned_before                             int64
-    active_snoozed                               int64
-    set_as_regular                               int64
-    normalised_price                           float64
-    discount_pct                               float64
-    vendor                                      object
-    global_popularity                          float64
-    count_adults                                 int64
-    count_children                               int64
-    count_babies                                 int64
-    count_pets                                   int64
-    days_since_purchase_variant_id               int64
-    avg_days_to_buy_variant_id                 float64
-    days_since_purchase_product_type             int64
-    avg_days_to_buy_product_type               float64
-    dtype: object
-
-
-
 ## Categorical encoding
 
 We have one variable that has str values: 'product_type'. If we want to use it with a model, we should transform its values to a numerical format
@@ -976,52 +929,9 @@ df_orders['product_type'].value_counts()
 ```
 
 
-
-
-    product_type
-    tinspackagedfoods         226474
-    condimentsdressings       129749
-    ricepastapulses           128098
-    haircare                  114978
-    cookingingredientsoils    110686
-                               ...  
-    babyfood12months            6797
-    householdsundries           6735
-    petcare                     4075
-    feedingweaning              2790
-    premixedcocktails           2620
-    Name: count, Length: 62, dtype: int64
-
-
-
-
 ```python
 df_orders['product_type'].unique()
 ```
-
-
-
-
-    array(['ricepastapulses', 'snacksconfectionery', 'dishwasherdetergent',
-           'cleaningaccessories', 'fabricconditionerfreshener', 'coffee',
-           'femininecare', 'bathroomlimescalecleaner', 'handsoapsanitisers',
-           'tinspackagedfoods', 'toiletroll', 'kitchenrolltissues', 'binbags',
-           'windowglasscleaner', 'homebaking', 'tea', 'jamhoneyspreads',
-           'washingliquidgel', 'longlifemilksubstitutes', 'allpurposecleaner',
-           'softdrinksmixers', 'condimentsdressings', 'babyfood6months',
-           'kidssnacks', 'cookingingredientsoils', 'floorcleanerpolish',
-           'cereal', 'driedfruitsnutsseeds', 'pickledfoodolives', 'catfood',
-           'cookingsaucesmarinades', 'juicesquash', 'beer', 'kidsdental',
-           'nappies', 'maternity', 'washingpowder', 'dental', 'haircare',
-           'bathshowergel', 'kitchenovencleaner', 'wipescottonwool',
-           'dogfood', 'babytoiletries', 'foodstorage', 'shavinggrooming',
-           'petcare', 'deodorant', 'washingcapsules', 'bodyskincare',
-           'delicatesstainremover', 'babyfood12months', 'facialskincare',
-           'superfoodssupplements', 'dryingironing', 'premixedcocktails',
-           'householdsundries', 'feedingweaning', 'babymilkformula',
-           'nappypants', 'healthcarevitamins', 'airfreshener'], dtype=object)
-
-
 
 We have many different types of product, so we cannot use one hot encoding, because that would create many many variables. Ordinal or label encoding would create an order that does not exist in the variable.
 Using target encoding, a method that transforms categorical variables into numerical values based on the target variable, is more suitable in this scenario. Based on the documentation of the [TargetEncoder](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.TargetEncoder.html) class, each category is encoded based on a shrunk estimate of the avg target values for observations belonging to the category. 
@@ -1039,99 +949,6 @@ df_orders['product_type_encoded'] = encoder.fit_transform(df_orders[['product_ty
 df_orders[['product_type', 'product_type_encoded', 'outcome']].sample(10)
 ```
 
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>product_type</th>
-      <th>product_type_encoded</th>
-      <th>outcome</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>584013</th>
-      <td>ricepastapulses</td>
-      <td>0.011760</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>273413</th>
-      <td>homebaking</td>
-      <td>0.019956</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>2681399</th>
-      <td>nappypants</td>
-      <td>0.001058</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>469748</th>
-      <td>washingpowder</td>
-      <td>0.006140</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>1861771</th>
-      <td>pickledfoodolives</td>
-      <td>0.011238</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>1027895</th>
-      <td>driedfruitsnutsseeds</td>
-      <td>0.015605</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>1244983</th>
-      <td>tinspackagedfoods</td>
-      <td>0.019468</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>2401234</th>
-      <td>wipescottonwool</td>
-      <td>0.008705</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>571359</th>
-      <td>tea</td>
-      <td>0.012398</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>1696236</th>
-      <td>tinspackagedfoods</td>
-      <td>0.019561</td>
-      <td>0</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-
-
 If new values are inserted in 'product_type', this method does not fail, it applies the fallback: setting the avg probability of the entire catalog, since the new value would not have purchasing history, so the method is robust. If many new values are frequently created, we should consider retraining the TargetEncoding with some frequency (e.g., bimonthly)
 
-### EDA completed.
+EDA has been completed, although we could keep exploring the data as much as we want. Now we could proceed to a modelling step.
