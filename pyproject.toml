@@ -4,7 +4,8 @@ version = "0.1.0"
 description = "Project for the program Zrive Applied Data Science"
 authors = ["Guille Barquero <gb@zriveapp.com>"]
 readme = "README.md"
-package-mode = false
+#package-mode = false
+packages = [{ include = "*", from = "src" }]
 
 [tool.poetry.dependencies]
 python = "^3.11"
@@ -21,6 +22,11 @@ pyarrow = "^23.0.1"
 seaborn = "^0.13.2"
 statsmodels = "^0.14.6"
 nbconvert = "^7.17.0"
+lightgbm = ">=4.0.0"
+shap = ">=0.44.0"
+plotnine = ">=0.12.0"
+scipy = ">=1.11.0"
+jupyterlab = ">=4.0.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.7.0"
