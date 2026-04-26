@@ -35,7 +35,7 @@ Main components:
 ### Option A: plain Python
 
 ```bash
-cd zrive/module_7
+cd src/module_6
 pip install -r requirements.txt
 python -m src.app
 ```
@@ -45,7 +45,7 @@ The API will be listening on `http://localhost:8000`.
 ### Option B: Docker (recommended)
 
 ```bash
-cd zrive/module_7
+cd src/module_6
 docker build -t basket-api .
 docker run --rm -p 8000:8000 basket-api
 ```
