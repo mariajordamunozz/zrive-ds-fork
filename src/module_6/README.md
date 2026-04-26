@@ -140,13 +140,3 @@ timestamp=... | event=error | endpoint=/predict | error_type=UserNotFound | mess
 }
 ```
 
-## Tests
-
-```bash
-cd zrive/module_7
-pip install -r requirements.txt pytest
-python -m pytest tests/ -v
-```
-
-Tests use `fastapi.testclient` with an injected `FakeFeatureStore` and `FakeModel`, so they do not depend on the real parquet files or model.
-
