@@ -3,7 +3,7 @@ import os
 import joblib
 import numpy as np
 
-from module_6.src.exceptions import PredictionException
+from ..exceptions import PredictionException
 
 MODEL = os.path.abspath(
     os.path.join(os.path.dirname(__file__), "../..", "bin/model.joblib")

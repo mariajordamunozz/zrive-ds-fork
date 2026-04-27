@@ -34,15 +34,18 @@ Main components:
 
 ### Option A: plain Python
 
+Run from the **`src/module_6` directory**:
+
 ```bash
-cd src/module_6
-pip install -r requirements.txt
-python -m src.app
+pip install -r src/module_6/requirements.txt
+python -m uvicorn src.module_6.src.app:app --host 0.0.0.0 --port 8000
 ```
 
 The API will be listening on `http://localhost:8000`.
 
 ### Option B: Docker (recommended)
+
+Run from the **`src/module_6` directory**:
 
 ```bash
 cd src/module_6
